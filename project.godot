@@ -1,0 +1,96 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "BasePiece",
+"language": "GDScript",
+"path": "res://scripts/pieces/BasePiece.gd"
+}, {
+"base": "Node2D",
+"class": "BaseTile",
+"language": "GDScript",
+"path": "res://scripts/backtiles/BaseTile.gd"
+}, {
+"base": "BasePiece",
+"class": "BerryPiece",
+"language": "GDScript",
+"path": "res://scripts/pieces/BerryPiece.gd"
+}, {
+"base": "BaseTile",
+"class": "DirtTile",
+"language": "GDScript",
+"path": "res://scripts/backtiles/DirtTile.gd"
+}, {
+"base": "BasePiece",
+"class": "GoldPiece",
+"language": "GDScript",
+"path": "res://scripts/pieces/GoldPiece.gd"
+}, {
+"base": "BasePiece",
+"class": "LeafPiece",
+"language": "GDScript",
+"path": "res://scripts/pieces/LeafPiece.gd"
+}, {
+"base": "BasePiece",
+"class": "MushroomPiece",
+"language": "GDScript",
+"path": "res://scripts/pieces/MushroomPiece.gd"
+}, {
+"base": "BasePiece",
+"class": "StonePiece",
+"language": "GDScript",
+"path": "res://scripts/pieces/StonePiece.gd"
+}, {
+"base": "BasePiece",
+"class": "WoodPiece",
+"language": "GDScript",
+"path": "res://scripts/pieces/WoodPiece.gd"
+} ]
+_global_script_class_icons={
+"BasePiece": "",
+"BaseTile": "",
+"BerryPiece": "",
+"DirtTile": "",
+"GoldPiece": "",
+"LeafPiece": "",
+"MushroomPiece": "",
+"StonePiece": "",
+"WoodPiece": ""
+}
+
+[application]
+
+config/name="Chain3"
+run/main_scene="res://scenes/GameWindow.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=576
+window/size/height=1024
+window/size/test_width=270
+window/size/test_height=585
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="keep_height"
+
+[input]
+
+ui_touch={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
+environment/default_environment="res://default_env.tres"

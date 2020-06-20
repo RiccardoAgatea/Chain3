@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://art/backgrounds/forest_bg.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Grid.gd" type="Script" id=2]
+[ext_resource path="res://scripts/BackHolder.gd" type="Script" id=3]
+
+[node name="GameWindow" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+margin_left = -585.047
+margin_top = -131.96
+margin_right = 1334.95
+margin_bottom = 948.045
+rect_scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 32.0
+margin_top = 192.0
+margin_right = 544.0
+margin_bottom = 832.0
+color = Color( 1, 1, 1, 0.196078 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grid" type="Node2D" parent="ColorRect"]
+position = Vector2( -32, -192 )
+script = ExtResource( 2 )
+width = 8
+height = 10
+x_start = 64
+y_start = 800
+offset = 64
+
+[node name="BackHolder" type="Node2D" parent="ColorRect/Grid"]
+script = ExtResource( 3 )
+
+[node name="CollapseTimer" type="Timer" parent="ColorRect/Grid"]
+wait_time = 0.5
+one_shot = true
+[connection signal="timeout" from="ColorRect/Grid/CollapseTimer" to="ColorRect/Grid" method="_on_CollapseTimer_timeout"]

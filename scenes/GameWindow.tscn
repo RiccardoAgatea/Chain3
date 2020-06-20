@@ -7,12 +7,16 @@
 [node name="GameWindow" type="Node2D"]
 
 [node name="Background" type="TextureRect" parent="."]
-margin_left = -585.047
-margin_top = -131.96
-margin_right = 1334.95
-margin_bottom = 948.045
+margin_left = -1264.9
+margin_top = -75.6381
+margin_right = 923.096
+margin_bottom = 1015.36
 rect_scale = Vector2( 1.2, 1.2 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
 __meta__ = {
 "_edit_use_anchors_": false
 }

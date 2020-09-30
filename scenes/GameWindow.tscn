@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://art/backgrounds/forest_bg.png" type="Texture" id=1]
-[ext_resource path="res://scripts/Grid.gd" type="Script" id=2]
-[ext_resource path="res://scripts/BackHolder.gd" type="Script" id=3]
+[ext_resource path="res://scenes/game-elements/Grid.tscn" type="PackedScene" id=2]
 
 [node name="GameWindow" type="Node2D"]
 
@@ -31,19 +30,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Grid" type="Node2D" parent="ColorRect"]
-position = Vector2( -32, -192 )
-script = ExtResource( 2 )
-width = 8
-height = 10
-x_start = 64
-y_start = 800
-offset = 64
-
-[node name="BackHolder" type="Node2D" parent="ColorRect/Grid"]
-script = ExtResource( 3 )
-
-[node name="CollapseTimer" type="Timer" parent="ColorRect/Grid"]
-wait_time = 0.5
-one_shot = true
-[connection signal="timeout" from="ColorRect/Grid/CollapseTimer" to="ColorRect/Grid" method="_on_CollapseTimer_timeout"]
+[node name="Grid" parent="ColorRect" instance=ExtResource( 2 )]

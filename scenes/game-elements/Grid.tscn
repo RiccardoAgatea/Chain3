@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/Grid.gd" type="Script" id=1]
+[ext_resource path="res://scripts/BackHolder.gd" type="Script" id=2]
+
+[node name="Grid" type="Node2D"]
+position = Vector2( -32, -192 )
+script = ExtResource( 1 )
+width = 8
+height = 10
+x_start = 64
+y_start = 800
+offset = 64
+
+[node name="BackHolder" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollapseTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+[connection signal="timeout" from="CollapseTimer" to="." method="_on_CollapseTimer_timeout"]

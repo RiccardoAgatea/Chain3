@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://art/backgrounds/forest_bg.png" type="Texture" id=1]
 [ext_resource path="res://scenes/game-elements/Grid.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/GameWindow.gd" type="Script" id=3]
 
 [node name="GameWindow" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Background" type="TextureRect" parent="."]
 margin_left = -1264.9
@@ -31,3 +33,5 @@ __meta__ = {
 }
 
 [node name="Grid" parent="ColorRect" instance=ExtResource( 2 )]
+width = 0
+height = 0

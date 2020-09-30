@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "BackTile",
+"language": "GDScript",
+"path": "res://scripts/game-elements/BackTile.gd"
+}, {
+"base": "Node2D",
 "class": "BasePiece",
 "language": "GDScript",
 "path": "res://scripts/pieces/BasePiece.gd"
@@ -24,10 +29,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/pieces/BerryPiece.gd"
 }, {
+"base": "Node2D",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://scripts/game-elements/Cell.gd"
+}, {
 "base": "BaseTile",
 "class": "DirtTile",
 "language": "GDScript",
 "path": "res://scripts/backtiles/DirtTile.gd"
+}, {
+"base": "Node2D",
+"class": "FrontTile",
+"language": "GDScript",
+"path": "res://scripts/game-elements/FrontTile.gd"
 }, {
 "base": "BasePiece",
 "class": "GoldPiece",
@@ -49,20 +64,29 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/pieces/StonePiece.gd"
 }, {
+"base": "Node2D",
+"class": "Tile",
+"language": "GDScript",
+"path": "res://scripts/game-elements/Tile.gd"
+}, {
 "base": "BasePiece",
 "class": "WoodPiece",
 "language": "GDScript",
 "path": "res://scripts/pieces/WoodPiece.gd"
 } ]
 _global_script_class_icons={
+"BackTile": "",
 "BasePiece": "",
 "BaseTile": "",
 "BerryPiece": "",
+"Cell": "",
 "DirtTile": "",
+"FrontTile": "",
 "GoldPiece": "",
 "LeafPiece": "",
 "MushroomPiece": "",
 "StonePiece": "",
+"Tile": "",
 "WoodPiece": ""
 }
 

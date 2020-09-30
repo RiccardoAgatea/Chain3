@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Strawberry",
+    "resources": {
+      "food": 1
+    },
+    "sprite": "res://art/sprites/strawberry.png"
+  },
+  {
+    "name": "Gold",
+    "resources": {
+      "money": 5
+    },
+    "sprite": "res://art/sprites/gold.png"
+  }
+]

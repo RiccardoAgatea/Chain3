@@ -5,11 +5,6 @@
 [node name="Grid" type="Node2D"]
 position = Vector2( -32, -192 )
 script = ExtResource( 1 )
-width = null
-height = null
-x_start = null
-y_start = null
-offset = null
 
 [node name="BackHolder" type="Node2D" parent="."]
 

@@ -12,5 +12,31 @@
       "money": 5
     },
     "sprite": "res://art/sprites/gold.png"
+  },
+  {
+    "name": "Leaf",
+    "resources": {},
+    "sprite": "res://art/sprites/herb3.png"
+  },
+  {
+    "name": "Mushroom",
+    "resources": {
+      "food": 3
+    },
+    "sprite": "res://art/sprites/mushroom.png"
+  },
+  {
+    "name": "Stone",
+    "resources": {
+      "stone": 1
+    },
+    "sprite": "res://art/sprites/stone.png"
+  },
+  {
+    "name": "Wood",
+    "resources": {
+      "wood": 1
+    },
+    "sprite": "res://art/sprites/root-tip.png"
   }
 ]

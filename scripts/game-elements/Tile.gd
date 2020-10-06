@@ -2,16 +2,16 @@ extends Node2D
 
 class_name Tile
 
-var tile_name: String
+var info: Dictionary
 
 
-func _init(info: Dictionary):
-	tile_name = info.name
+func init(i: Dictionary):
+	info = i
 	$Sprite.set_texture(load(info.sprite))
 
 
 func slide():
-	move_to(get_parent().position)
+	move_to(Vector2(0, 0))
 	pass
 
 
@@ -20,3 +20,7 @@ func move_to(target):
 		self, "position", position, target, 0.4, Tween.TRANS_BOUNCE, Tween.EASE_OUT
 	)
 	$Tween.start()
+
+
+func resource_name() -> String:
+	return info.name

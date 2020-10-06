@@ -33,5 +33,3 @@ __meta__ = {
 }
 
 [node name="Grid" parent="ColorRect" instance=ExtResource( 2 )]
-width = 0
-height = 0

@@ -1,5 +1,93 @@
 {
+  "columns": 8,
+  "rows": 10,
+  "cellSize": 64,
+  "description": "The layout is given in the grid property, a row at a time. For each row che cells are given from left to riight. For each cell, the back and front properties define what is in the back of the cell (to be destroyed to complete the level) and what is in front of it (as effect, like chains and similar), respectively. If the tile property is true then the cell should start the level with a tile.",
   "grid": [
+    [
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      }
+    ],
+    [
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      },
+      {
+        "back": null,
+        "tile": true,
+        "front": null
+      }
+    ],
     [
       {
         "back": null,

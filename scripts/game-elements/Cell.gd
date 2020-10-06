@@ -2,17 +2,32 @@ extends Node2D
 
 class_name Cell
 
+# Position
+var row: int
+var column: int
+
 # Layers
-onready var back := $BackTile  #back
+var back: BackTile  #back
 var tile: Tile = null  #sprite
-onready var effect := $FrontTile  #front
+var effect: FrontTile  #front
+
+# Tile scene
+const TILE := preload("res://scenes/game-elements/Tile.tscn")
+
+
+func _ready():
+	back = $BackTile
+	effect = $FrontTile
 
 
 func make_tile(info: Dictionary) -> bool:
 	if not empty():
 		return false
 
-	return acquire_tile(Tile.new(info))
+	var t := TILE.instance()
+	t.init(info)
+	t.position = position
+	return acquire_tile(t)
 
 
 func take_tile() -> Tile:
@@ -28,7 +43,7 @@ func take_tile() -> Tile:
 func acquire_tile(t: Tile) -> bool:
 	if tile == null:
 		tile = t
-		add_child_below_node(tile, back)
+		add_child_below_node(back, tile)
 		tile.slide()
 		return true
 	else:
@@ -37,3 +52,22 @@ func acquire_tile(t: Tile) -> bool:
 
 func empty() -> bool:
 	return tile == null
+
+
+func set_grid_position(r: int, c: int):
+	row = r
+	column = c
+
+
+func adjacent(cell: Cell) -> bool:
+	return (
+		row - cell.row >= -1
+		and row - cell.row <= 1
+		and column - cell.column >= -1
+		and column - cell.column <= 1
+		and (not (row - cell.row == 0 and column - cell.column == 0))
+	)
+
+
+func compatible(cell):
+	return adjacent(cell) and tile.resource_name() == cell.tile.resource_name()

@@ -84,4 +84,20 @@ func click(coordinates: Vector2):
 	if r < 0 or r >= height or c < 0 or c >= width:
 		return
 
-	(grid[r][c] as Cell).select()
+	if selected_cells == [] or selected_cells.back().compatible(grid[r][c]):
+		select(r, c)
+	else:
+		deselect_all()
+
+
+func select(i: int, j: int):
+	var cell: Cell = grid[i][j]
+	selected_cells.append(cell)
+	cell.select()
+
+
+func deselect_all():
+	for cell in selected_cells:
+		cell.deselect()
+
+	selected_cells = []

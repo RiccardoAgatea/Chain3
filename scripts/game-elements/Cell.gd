@@ -76,3 +76,8 @@ func compatible(cell: Cell) -> bool:
 func select():
 	$Selection.show()
 	$Selection.play()
+
+
+func deselect():
+	$Selection.stop()
+	$Selection.hide()

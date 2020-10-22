@@ -21,22 +21,24 @@ var user_active := true
 func _ready():
 	position = Vector2(0, 0)
 	randomize()
-	var file := File.new()
-	if not file.open("res://levels/default.json", File.READ):
-		pass
-	var level: Dictionary = JSON.parse(file.get_as_text()).result
-	height = level.rows as int
-	width = level.columns as int
-	cell_size = level.cellSize as int
-	print(position)
-	load_grid(level.grid)
 
 
 func load_tiles() -> Array:
 	var file := File.new()
-	if not file.open("res://config/tiles.json", File.READ):
-		pass
+	if file.open("res://config/tiles.json", File.READ) != OK:
+		print("nou tiles")
 	return JSON.parse(file.get_as_text()).result
+
+
+func load_level(level_file: String):
+	var file := File.new()
+	if file.open(level_file, File.READ) != OK:
+		print("nou level")
+	var level: Dictionary = JSON.parse(file.get_as_text()).result
+	height = level.rows as int
+	width = level.columns as int
+	cell_size = level.cellSize as int
+	load_grid(level.grid)
 
 
 func load_grid(layout: Array):
@@ -51,7 +53,6 @@ func load_grid(layout: Array):
 
 			c.set_grid_position(i, j)
 			c.position = pos_to_pixels(i, j)
-			print(c.position)
 
 			if cell.tile:
 				var info = tile_types[randi() % tile_types.size()]

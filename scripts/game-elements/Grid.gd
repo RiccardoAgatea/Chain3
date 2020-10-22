@@ -1,8 +1,8 @@
 extends Node2D
 
 # Dimensions (in slots) of the grid
-export (int) var width
-export (int) var height
+var width: int = 0
+var height: int = 0
 
 # Scenes
 const CELL := preload("res://scenes/game-elements/Cell.tscn")
@@ -19,6 +19,7 @@ var user_active := true
 
 # selected cells
 var selected_cells := []
+signal complete_chain(chain)
 
 
 func _ready():
@@ -86,6 +87,8 @@ func click(coordinates: Vector2):
 
 	if selected_cells == [] or selected_cells.back().compatible(grid[r][c]):
 		select(r, c)
+	elif selected_cells.back().row == r and selected_cells.back().column == c:
+		confirm_selection()
 	else:
 		deselect_all()
 
@@ -101,3 +104,12 @@ func deselect_all():
 		cell.deselect()
 
 	selected_cells = []
+
+
+func confirm_selection():
+	var tile_list := []
+	for cell in selected_cells:
+		tile_list.append(cell.pop())
+
+	selected_cells = []
+	emit_signal("complete_chain", tile_list)

@@ -33,7 +33,6 @@ func make_tile(info: Dictionary) -> bool:
 func take_tile() -> Tile:
 	if tile != null:
 		remove_child(tile)
-		tile.free()
 
 	var t := tile
 	tile = null
@@ -81,3 +80,10 @@ func select():
 func deselect():
 	$Selection.stop()
 	$Selection.hide()
+
+
+func pop() -> Tile:
+	deselect()
+	var t := take_tile()
+	t.position = to_global(t.position)
+	return t

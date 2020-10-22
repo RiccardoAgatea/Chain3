@@ -17,9 +17,11 @@ var grid := []
 # State control
 var user_active := true
 
+# selected cells
+var selected_cells := []
+
 
 func _ready():
-	position = Vector2(0, 0)
 	randomize()
 
 
@@ -66,3 +68,20 @@ func pos_to_pixels(r: int, c: int) -> Vector2:
 	var x: int = round((cell_size / 2.0) + c * (cell_size as float)) as int
 	var y: int = round((cell_size / 2.0) + r * (cell_size as float)) as int
 	return Vector2(x, y)
+
+
+func pixels_to_pos(coordinates: Vector2) -> Vector2:
+	var r: int = ((coordinates.y as float) / (cell_size as float)) as int
+	var c: int = ((coordinates.x as float) / (cell_size as float)) as int
+	return Vector2(r, c)
+
+
+func click(coordinates: Vector2):
+	var pos := pixels_to_pos(coordinates)
+	var r: int = pos.x as int
+	var c: int = pos.y as int
+
+	if r < 0 or r >= height or c < 0 or c >= width:
+		return
+
+	(grid[r][c] as Cell).select()

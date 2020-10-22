@@ -69,5 +69,10 @@ func adjacent(cell: Cell) -> bool:
 	)
 
 
-func compatible(cell):
+func compatible(cell: Cell) -> bool:
 	return adjacent(cell) and tile.resource_name() == cell.tile.resource_name()
+
+
+func select():
+	$Selection.show()
+	$Selection.play()

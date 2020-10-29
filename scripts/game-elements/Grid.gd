@@ -68,14 +68,14 @@ func load_grid(layout: Array):
 
 
 func pos_to_pixels(r: int, c: int) -> Vector2:
-	var x: int = round((cell_size / 2.0) + c * (cell_size as float)) as int
-	var y: int = round((cell_size / 2.0) + r * (cell_size as float)) as int
+	var x: int = floor((cell_size / 2.0) + c * (cell_size as float)) as int
+	var y: int = floor((cell_size / 2.0) + r * (cell_size as float)) as int
 	return Vector2(x, y)
 
 
 func pixels_to_pos(coordinates: Vector2) -> Vector2:
-	var r: int = ((coordinates.y as float) / (cell_size as float)) as int
-	var c: int = ((coordinates.x as float) / (cell_size as float)) as int
+	var r: int = floor((coordinates.y as float) / (cell_size as float)) as int
+	var c: int = floor((coordinates.x as float) / (cell_size as float)) as int
 	return Vector2(r, c)
 
 

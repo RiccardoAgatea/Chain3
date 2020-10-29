@@ -23,15 +23,5 @@ func _on_Grid_complete_chain(tiles_list):
 	for tile in tiles_list:
 		add_child(tile)
 		tile.position = to_local(tile.position)
-		#var a = tile.get_children()[1]
-		#var b = tile.get_child_count()
-		var c = tile.get_child(0)
-		c.interpolate_property(
-			tile,
-			"position",
-			tile.position,
-			backpack_center,
-			0.4,
-			Tween.TRANS_BOUNCE,
-			Tween.EASE_OUT
-		)
+		tile.collect(backpack_center)
+	$GridHolder/Grid.refill()

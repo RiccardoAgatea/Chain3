@@ -12,7 +12,6 @@ func init(i: Dictionary):
 
 func slide():
 	move_to(Vector2(0, 0))
-	pass
 
 
 func move_to(target):

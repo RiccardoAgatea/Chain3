@@ -76,7 +76,17 @@ func adjacent(cell: Cell) -> bool:
 
 
 func compatible(cell: Cell) -> bool:
-	return adjacent(cell) and tile.resource_name() == cell.tile.resource_name()
+	return (
+		selectable()
+		&& cell.selectable()
+		&& adjacent(cell)
+		and tile.resource_name() == cell.tile.resource_name()
+	)
+
+
+func selectable() -> bool:
+	return enabled && not empty()
+
 
 func can_accept_tile() -> bool:
 	return enabled && empty()

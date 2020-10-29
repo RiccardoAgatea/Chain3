@@ -14,6 +14,9 @@ onready var tile_types := load_tiles()
 var cell_size: int
 var grid := []
 
+# Cells used to create new tiles at the top
+var generators := []
+
 # State control
 var user_active := true
 
@@ -45,6 +48,14 @@ func load_level(level_file: String):
 
 
 func load_grid(layout: Array):
+	for j in width:
+		var c := CELL.instance()
+		generators.append(c)
+		add_child(c)
+
+		c.set_grid_position(-1, j)
+		c.position = pos_to_pixels(-1, j)
+
 	for i in height:
 		var row: Array = layout[i]
 		var r := []
@@ -58,13 +69,17 @@ func load_grid(layout: Array):
 			c.position = pos_to_pixels(i, j)
 
 			if cell.tile:
-				var info = tile_types[randi() % tile_types.size()]
-				if not c.make_tile(info):
-					pass
+				generate_tile(c)
 			else:
 				c.set_enabled(false)
 
 		grid.append(r)
+
+
+func generate_tile(cell: Cell) -> bool:
+	var info = tile_types[randi() % tile_types.size()]
+	var x = cell.make_tile(info)
+	return x
 
 
 func pos_to_pixels(r: int, c: int) -> Vector2:

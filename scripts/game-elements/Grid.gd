@@ -87,10 +87,16 @@ func click(coordinates: Vector2):
 	if r < 0 or r >= height or c < 0 or c >= width:
 		return
 
-	if selected_cells == [] or selected_cells.back().compatible(grid[r][c]):
+	if selected_cells == []:
 		select(r, c)
 	elif selected_cells.back().row == r and selected_cells.back().column == c:
 		confirm_selection()
+	elif selected_cells.has(grid[r][c]):
+		while not (selected_cells.back().row == r and selected_cells.back().column == c):
+			selected_cells.back().deselect()
+			selected_cells.pop_back()
+	elif selected_cells.back().compatible(grid[r][c]):
+		select(r, c)
 	else:
 		deselect_all()
 

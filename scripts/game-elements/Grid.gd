@@ -61,6 +61,8 @@ func load_grid(layout: Array):
 				var info = tile_types[randi() % tile_types.size()]
 				if not c.make_tile(info):
 					pass
+			else:
+				c.set_enabled(false)
 
 		grid.append(r)
 

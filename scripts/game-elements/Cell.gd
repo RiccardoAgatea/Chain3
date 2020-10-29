@@ -33,13 +33,14 @@ func make_tile(info: Dictionary) -> bool:
 
 	var t := TILE.instance()
 	t.init(info)
-	t.position = position
+	t.position = global_position
 	return acquire_tile(t)
 
 
 func take_tile() -> Tile:
 	if tile != null:
 		remove_child(tile)
+		tile.position = to_global(tile.position)
 
 	var t := tile
 	tile = null
@@ -50,6 +51,7 @@ func acquire_tile(t: Tile) -> bool:
 	if tile == null:
 		tile = t
 		add_child_below_node(back, tile)
+		tile.position = to_local(tile.position)
 		tile.slide()
 		return true
 	else:
@@ -104,6 +106,4 @@ func deselect():
 
 func pop() -> Tile:
 	deselect()
-	var t := take_tile()
-	t.position = to_global(t.position)
-	return t
+	return take_tile()

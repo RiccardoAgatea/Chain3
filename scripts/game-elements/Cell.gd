@@ -38,7 +38,7 @@ func make_tile(info: Dictionary) -> bool:
 
 
 func take_tile() -> Tile:
-	if tile != null:
+	if not empty():
 		remove_child(tile)
 		tile.position = to_global(tile.position)
 
@@ -48,7 +48,7 @@ func take_tile() -> Tile:
 
 
 func acquire_tile(t: Tile) -> bool:
-	if tile == null:
+	if can_accept_tile():
 		tile = t
 		add_child_below_node(back, tile)
 		tile.position = to_local(tile.position)

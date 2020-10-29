@@ -11,6 +11,9 @@ var back: BackTile  #back
 var tile: Tile = null  #sprite
 var effect: FrontTile  #front
 
+# Empty cells
+var enabled: bool = true
+
 # Tile scene
 const TILE := preload("res://scenes/game-elements/Tile.tscn")
 
@@ -18,6 +21,10 @@ const TILE := preload("res://scenes/game-elements/Tile.tscn")
 func _ready():
 	back = $BackTile
 	effect = $FrontTile
+
+
+func set_enabled(en: bool):
+	enabled = en
 
 
 func make_tile(info: Dictionary) -> bool:
@@ -70,6 +77,9 @@ func adjacent(cell: Cell) -> bool:
 
 func compatible(cell: Cell) -> bool:
 	return adjacent(cell) and tile.resource_name() == cell.tile.resource_name()
+
+func can_accept_tile() -> bool:
+	return enabled && empty()
 
 
 func select():

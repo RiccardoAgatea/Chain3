@@ -136,3 +136,20 @@ func confirm_selection():
 
 	selected_cells = []
 	emit_signal("complete_chain", tile_list)
+
+
+func refill():
+	for j in width:
+		for i in range(height - 1, -1, -1):
+			var cell: Cell = grid[i][j]
+			if cell.empty() && cell.can_accept_tile():
+				for k in range(i - 1, -1, -1):
+					var c: Cell = grid[k][j]
+					if not c.empty():
+						cell.acquire_tile(c.take_tile())
+						break
+				if cell.empty():
+					var gen: Cell = generators[j]
+					generate_tile(gen)
+					var tile = gen.take_tile()
+					cell.acquire_tile(tile)

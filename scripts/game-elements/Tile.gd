@@ -26,15 +26,15 @@ func resource_name() -> String:
 
 
 func collect(inventory_position):
-	$Tween.connect(
-		"tween_all_completed", self, "_on_Tween_tween_all_completed", [], CONNECT_ONESHOT
-	)
+	$Tween.connect("tween_completed", self, "_on_Tween_tween_all_completed")
 	$Tween.interpolate_property(
 		self, "position", position, inventory_position, 0.3, Tween.TRANS_QUINT, Tween.EASE_IN_OUT
 	)
+	var collected_resources: Dictionary = info["resources"].duplicate(true)
 	$Tween.start()
-	return info["resources"].duplicate(true)
+	return collected_resources
 
 
-func _on_Tween_tween_all_completed():
+func _on_Tween_tween_all_completed(o, k):
+	hide()
 	queue_free()

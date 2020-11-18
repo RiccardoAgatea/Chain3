@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "BackTile",
 "language": "GDScript",
-"path": "res://scripts/game-elements/BackTile.gd"
+"path": "res://scripts/BackTile.gd"
 }, {
 "base": "Node2D",
 "class": "BasePiece",
@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Cell",
 "language": "GDScript",
-"path": "res://scripts/game-elements/Cell.gd"
+"path": "res://scripts/Cell.gd"
 }, {
 "base": "BaseTile",
 "class": "DirtTile",
@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "FrontTile",
 "language": "GDScript",
-"path": "res://scripts/game-elements/FrontTile.gd"
+"path": "res://scripts/FrontTile.gd"
 }, {
 "base": "BasePiece",
 "class": "GoldPiece",
@@ -67,7 +67,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Tile",
 "language": "GDScript",
-"path": "res://scripts/game-elements/Tile.gd"
+"path": "res://scripts/Tile.gd"
 }, {
 "base": "BasePiece",
 "class": "WoodPiece",

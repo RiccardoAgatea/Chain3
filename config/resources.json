@@ -1,18 +1,22 @@
 [
   {
     "name": "money",
-    "sprite": "res://art/sprites/gold-coin-stack.png"
+    "sprite": "res://art/sprites/gold-coin-stack.png",
+    "order": 0
   },
   {
     "name": "food",
-    "sprite": "res://art/sprites/loaf-of-bread.png"
+    "sprite": "res://art/sprites/loaf-of-bread.png",
+    "order": 1
   },
   {
     "name": "wood",
-    "sprite": "res://art/sprites/wood_pile.png"
+    "sprite": "res://art/sprites/wood-piece.png",
+    "order": 2
   },
   {
     "name": "stone",
-    "sprite": "res://art/sprites/stone_stack.png"
+    "sprite": "res://art/sprites/stone-stack.png",
+    "order": 3
   }
 ]

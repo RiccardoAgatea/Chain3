@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wood_pile.png-52e88f8b8193e06107a63daecc8e4ccf.stex"
+path="res://.import/wood-pile.png-2ca6bc5700bad577500420b57f2af405.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/sprites/wood_pile.png"
-dest_files=[ "res://.import/wood_pile.png-52e88f8b8193e06107a63daecc8e4ccf.stex" ]
+source_file="res://art/sprites/wood-pile.png"
+dest_files=[ "res://.import/wood-pile.png-2ca6bc5700bad577500420b57f2af405.stex" ]
 
 [params]
 

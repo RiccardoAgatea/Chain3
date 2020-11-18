@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stone_stack.png-58fa32e7ed758978a2921478a06a4b83.stex"
+path="res://.import/stone-stack.png-65ad53438afcd49a34889eb995c7a7fc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/sprites/stone_stack.png"
-dest_files=[ "res://.import/stone_stack.png-58fa32e7ed758978a2921478a06a4b83.stex" ]
+source_file="res://art/sprites/stone-stack.png"
+dest_files=[ "res://.import/stone-stack.png-65ad53438afcd49a34889eb995c7a7fc.stex" ]
 
 [params]
 

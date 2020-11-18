@@ -23,5 +23,15 @@ func _on_Grid_complete_chain(tiles_list):
 	for tile in tiles_list:
 		add_child(tile)
 		tile.position = to_local(tile.position)
-		tile.collect(backpack_center)
+		$ResourcesOverlay.add_resources(tile.collect(backpack_center))
 	$GridHolder/Grid.refill()
+
+
+func _on_Backpack_pressed():
+	# TODO: Add pause game
+	$ResourcesOverlay.show()
+
+
+func _on_ResourcesOverlay_close():
+	# TODO: Add resume game
+	$ResourcesOverlay.hide()

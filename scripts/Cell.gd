@@ -15,7 +15,7 @@ var effect: FrontTile  #front
 var enabled: bool = true
 
 # Tile scene
-const TILE := preload("res://scenes/game-elements/Tile.tscn")
+const TILE := preload("res://scenes/Tile.tscn")
 
 
 func _ready():

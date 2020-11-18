@@ -5,7 +5,7 @@ var width: int = 0
 var height: int = 0
 
 # Scenes
-const CELL := preload("res://scenes/game-elements/Cell.tscn")
+const CELL := preload("res://scenes//Cell.tscn")
 
 # Piece types
 onready var tile_types := load_tiles()

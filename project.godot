@@ -100,6 +100,7 @@ config/icon="res://icon.png"
 
 IconLoader="*res://addons/file-editor/scripts/IconLoader.gd"
 LastOpenedFiles="*res://addons/file-editor/scripts/LastOpenedFiles.gd"
+Global="*res://scripts/Global.gd"
 
 [debug]
 

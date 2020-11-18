@@ -1,6 +1,8 @@
 # Credits
 ## Sprites
-- tiles sprites: shikashiassets and gameicons.net
+- tiles sprites: shikashiassets
 - breaking tiles sprites: FacadeGaikan
-- forest background: Ironthunder
+- resources: shikashiassets, BizmasterStudios
 
+## Backgrounds
+- forest background: Ironthunder

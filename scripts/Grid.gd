@@ -1,147 +1,155 @@
 extends Node2D
 
 # Dimensions (in slots) of the grid
-export (int) var width;
-export (int) var height;
+var width: int = 0
+var height: int = 0
 
-# Position of the center of the bottom right piece
-export (int) var x_start;
-export (int) var y_start;
-
-# Length of the side of a cell
-export (int) var offset;
+# Scenes
+const CELL := preload("res://scenes//Cell.tscn")
 
 # Piece types
-var piece_types := [
-	preload("res://scenes/pieces/BerryPiece.tscn"),
-	preload("res://scenes/pieces/GoldPiece.tscn"),
-	preload("res://scenes/pieces/LeafPiece.tscn"),
-	preload("res://scenes/pieces/MushroomPiece.tscn"),
-	preload("res://scenes/pieces/StonePiece.tscn"),
-	preload("res://scenes/pieces/WoodPiece.tscn")
-];
+onready var tile_types := load_tiles()
 
 # Grid holding the pieces
+var cell_size: int
 var grid := []
 
-# List of selected pieces
-var selected := []
+# Cells used to create new tiles at the top
+var generators := []
 
 # State control
 var user_active := true
 
+# selected cells
+var selected_cells := []
+signal complete_chain(chain)
+
+
 func _ready():
 	randomize()
-	
-	for i in width:
-		grid.append([])
-		for j in height:
-			grid[i].append(null)
-	
-	spawn_grid()
 
-func create_piece() -> BasePiece :
-	var piece: BasePiece = piece_types[randi() % piece_types.size()].instance()
-	add_child(piece)
-	return piece
 
-func spawn_grid():
-	refill_columns()
-#	for i in width:
-#		for j in height:
-#			#grid[i][j] = 
-#			var piece: BasePiece = create_piece()
-#			piece.position = grid_to_pixel(i, j)
-#			grid[i][j] = piece
+func load_tiles() -> Array:
+	var file := File.new()
+	if file.open("res://config/tiles.json", File.READ) != OK:
+		print("nou tiles")
+	return JSON.parse(file.get_as_text()).result
 
-func grid_to_pixel(column: int, row: int) -> Vector2:
-	var x: int = x_start + offset * column
-	# Minus because we count rows from the bottom up
-	var y: int = y_start - offset * row
 
-	return Vector2(x,y)
+func load_level(level_file: String):
+	var file := File.new()
+	if file.open(level_file, File.READ) != OK:
+		print("nou level")
+	var level: Dictionary = JSON.parse(file.get_as_text()).result
+	height = level.rows as int
+	width = level.columns as int
+	cell_size = level.cellSize as int
+	load_grid(level.grid)
 
-func pixel_to_grid(x:int, y:int) -> Vector2:
-	var column: int = round((x - x_start) / (offset as float)) as int
-	var row: int = round((y_start - y) / (offset as float)) as int
-	return Vector2(column, row)
 
-# Still missing the case 'click on piece that was already selected'
-# Change:
-# If click on last cell selected, activate the 'get resource thing', todo
-# If click on selected cell that's not the last, deselect every cell from the last back to the clicked
-func select_piece(column, row) -> void:
-	var piece: BasePiece = grid[column][row]
-	
-	# Prevents breaking if you try to make a chain right after the old one disappeared
-	if piece == null:
+func load_grid(layout: Array):
+	for j in width:
+		var c := CELL.instance()
+		generators.append(c)
+		add_child(c)
+
+		c.set_grid_position(-1, j)
+		c.position = pos_to_pixels(-1, j)
+
+	for i in height:
+		var row: Array = layout[i]
+		var r := []
+		for j in width:
+			var cell: Dictionary = row[j]
+			var c := CELL.instance()
+			r.append(c)
+			add_child(c)
+
+			c.set_grid_position(i, j)
+			c.position = pos_to_pixels(i, j)
+
+			if cell.tile:
+				generate_tile(c)
+			else:
+				c.set_enabled(false)
+
+		grid.append(r)
+
+
+func generate_tile(cell: Cell) -> bool:
+	var info = tile_types[randi() % tile_types.size()]
+	var x = cell.make_tile(info)
+	return x
+
+
+func pos_to_pixels(r: int, c: int) -> Vector2:
+	var x: int = floor((cell_size / 2.0) + c * (cell_size as float)) as int
+	var y: int = floor((cell_size / 2.0) + r * (cell_size as float)) as int
+	return Vector2(x, y)
+
+
+func pixels_to_pos(coordinates: Vector2) -> Vector2:
+	var r: int = floor((coordinates.y as float) / (cell_size as float)) as int
+	var c: int = floor((coordinates.x as float) / (cell_size as float)) as int
+	return Vector2(r, c)
+
+
+func click(coordinates: Vector2):
+	var pos := pixels_to_pos(coordinates)
+	var r: int = pos.x as int
+	var c: int = pos.y as int
+
+	if r < 0 or r >= height or c < 0 or c >= width:
 		return
-	
-	if selected == []:
-		selected.append([column, row])
-		piece.select()
-	elif [column, row] == selected.back():
-		user_active = false
-		destroy_selected()
-	elif selected.has([column, row]):
-		while selected.back() != [column, row]:
-			var cell = selected.pop_back()
-			grid[cell[0]][cell[1]].deselect()
-	elif piece.get_class() == grid[selected.front()[0]][selected.front()[1]].get_class() and abs(selected.back()[0] - column) <= 1 and abs(selected.back()[1] - row) <= 1:
-		selected.append([column, row])
-		piece.select()
+
+	if selected_cells == []:
+		select(r, c)
+	elif selected_cells.back().row == r and selected_cells.back().column == c:
+		confirm_selection()
+	elif selected_cells.has(grid[r][c]):
+		while not (selected_cells.back().row == r and selected_cells.back().column == c):
+			selected_cells.back().deselect()
+			selected_cells.pop_back()
+	elif selected_cells.back().compatible(grid[r][c]):
+		select(r, c)
 	else:
 		deselect_all()
 
-func touch() -> void:
-	var position := get_viewport().get_mouse_position()
-	
-	# Check if the mouse is inside the grid
-	if position.x < (get_parent() as Control).rect_position.x or position.x >= (get_parent() as Control).rect_position.x + (get_parent() as Control).rect_size.x or position.y < (get_parent() as Control).rect_position.y or position.y >= (get_parent() as Control).rect_position.y + (get_parent() as Control).rect_size.y:
-		deselect_all()
-	else:
-		var cell := pixel_to_grid(position.x as int, position.y as int)
-		select_piece(cell.x, cell.y)
 
-func deselect_all() -> void:
-	while selected != []:
-		var cell = selected.pop_back()
-		grid[cell[0]][cell[1]].deselect()
+func select(i: int, j: int):
+	var cell: Cell = grid[i][j]
+	selected_cells.append(cell)
+	cell.select()
 
-# warning-ignore:unused_argument
-func _process(delta):
-	if user_active:
-		if Input.is_action_just_pressed("ui_touch"):
-			touch()
 
-func destroy_selected():
-	while selected != []:
-		var cell = selected.pop_front()
-		grid[cell[0]][cell[1]].queue_free()
-		grid[cell[0]][cell[1]] = null
-	
-	$CollapseTimer.start()
+func deselect_all():
+	for cell in selected_cells:
+		cell.deselect()
 
-func collapse_columns():
-	for i in width:
-		for j in height:
-			if grid[i][j] == null:
-				for k in range(j+1, height):
-					if grid[i][k] != null:
-						grid[i][k].move_to(grid_to_pixel(i,j))
-						grid[i][j] = grid[i][k]
-						grid[i][k] = null
+	selected_cells = []
+
+
+func confirm_selection():
+	var tile_list := []
+	for cell in selected_cells:
+		tile_list.append(cell.pop())
+
+	selected_cells = []
+	emit_signal("complete_chain", tile_list)
+
+
+func refill():
+	for j in width:
+		for i in range(height - 1, -1, -1):
+			var cell: Cell = grid[i][j]
+			if cell.empty() && cell.can_accept_tile():
+				for k in range(i - 1, -1, -1):
+					var c: Cell = grid[k][j]
+					if not c.empty():
+						cell.acquire_tile(c.take_tile())
 						break
-
-func refill_columns():
-	for i in width:
-		for j in height:
-			if grid[i][j] == null:
-				grid[i][j] = create_piece()
-				grid[i][j].position = grid_to_pixel(i, height)
-				grid[i][j].move_to(grid_to_pixel(i,j))
-
-func _on_CollapseTimer_timeout():
-	collapse_columns()
-	refill_columns()
-	user_active = true
+				if cell.empty():
+					var gen: Cell = generators[j]
+					generate_tile(gen)
+					var tile = gen.take_tile()
+					cell.acquire_tile(tile)

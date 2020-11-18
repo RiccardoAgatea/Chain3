@@ -1,0 +1,42 @@
+[
+  {
+    "name": "strawberry",
+    "resources": {
+      "food": 1
+    },
+    "sprite": "res://art/sprites/strawberry.png"
+  },
+  {
+    "name": "gold_ingot",
+    "resources": {
+      "money": 5
+    },
+    "sprite": "res://art/sprites/gold.png"
+  },
+  {
+    "name": "leaf",
+    "resources": {},
+    "sprite": "res://art/sprites/herb3.png"
+  },
+  {
+    "name": "mushroom",
+    "resources": {
+      "food": 3
+    },
+    "sprite": "res://art/sprites/mushroom.png"
+  },
+  {
+    "name": "stone_block",
+    "resources": {
+      "stone": 1
+    },
+    "sprite": "res://art/sprites/stone.png"
+  },
+  {
+    "name": "branch",
+    "resources": {
+      "wood": 1
+    },
+    "sprite": "res://art/sprites/root-tip.png"
+  }
+]

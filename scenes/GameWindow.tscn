@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://art/backgrounds/forest_bg.png" type="Texture" id=1]
-[ext_resource path="res://scripts/Grid.gd" type="Script" id=2]
-[ext_resource path="res://scripts/BackHolder.gd" type="Script" id=3]
+[ext_resource path="res://scenes/game-elements/Grid.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/GameWindow.gd" type="Script" id=3]
+[ext_resource path="res://art/sprites/Knapsack.png" type="Texture" id=4]
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="GameWindow" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Background" type="TextureRect" parent="."]
 margin_left = -1264.9
@@ -21,7 +35,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="TopBarHolder" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 576.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+color = Color( 1, 1, 1, 0.196078 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Backpack" type="Button" parent="TopBarHolder"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = -80.0
+margin_right = 80.0
+margin_bottom = 80.0
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridHolder" type="ColorRect" parent="."]
 margin_left = 32.0
 margin_top = 192.0
 margin_right = 544.0
@@ -31,19 +73,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Grid" type="Node2D" parent="ColorRect"]
-position = Vector2( -32, -192 )
-script = ExtResource( 2 )
-width = 8
-height = 10
-x_start = 64
-y_start = 800
-offset = 64
-
-[node name="BackHolder" type="Node2D" parent="ColorRect/Grid"]
-script = ExtResource( 3 )
-
-[node name="CollapseTimer" type="Timer" parent="ColorRect/Grid"]
-wait_time = 0.5
-one_shot = true
-[connection signal="timeout" from="ColorRect/Grid/CollapseTimer" to="ColorRect/Grid" method="_on_CollapseTimer_timeout"]
+[node name="Grid" parent="GridHolder" instance=ExtResource( 2 )]
+position = Vector2( 0, 0 )
+[connection signal="complete_chain" from="GridHolder/Grid" to="." method="_on_Grid_complete_chain"]

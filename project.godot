@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "BackTile",
+"language": "GDScript",
+"path": "res://scripts/BackTile.gd"
+}, {
+"base": "Node2D",
 "class": "BasePiece",
 "language": "GDScript",
 "path": "res://scripts/pieces/BasePiece.gd"
@@ -24,10 +29,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/pieces/BerryPiece.gd"
 }, {
+"base": "Node2D",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://scripts/Cell.gd"
+}, {
 "base": "BaseTile",
 "class": "DirtTile",
 "language": "GDScript",
 "path": "res://scripts/backtiles/DirtTile.gd"
+}, {
+"base": "Node2D",
+"class": "FrontTile",
+"language": "GDScript",
+"path": "res://scripts/FrontTile.gd"
 }, {
 "base": "BasePiece",
 "class": "GoldPiece",
@@ -49,20 +64,29 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/pieces/StonePiece.gd"
 }, {
+"base": "Node2D",
+"class": "Tile",
+"language": "GDScript",
+"path": "res://scripts/Tile.gd"
+}, {
 "base": "BasePiece",
 "class": "WoodPiece",
 "language": "GDScript",
 "path": "res://scripts/pieces/WoodPiece.gd"
 } ]
 _global_script_class_icons={
+"BackTile": "",
 "BasePiece": "",
 "BaseTile": "",
 "BerryPiece": "",
+"Cell": "",
 "DirtTile": "",
+"FrontTile": "",
 "GoldPiece": "",
 "LeafPiece": "",
 "MushroomPiece": "",
 "StonePiece": "",
+"Tile": "",
 "WoodPiece": ""
 }
 
@@ -77,12 +101,17 @@ config/icon="res://icon.png"
 IconLoader="*res://addons/file-editor/scripts/IconLoader.gd"
 LastOpenedFiles="*res://addons/file-editor/scripts/LastOpenedFiles.gd"
 
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=576
 window/size/height=1024
-window/size/test_width=576
-window/size/test_height=1024
+window/size/resizable=false
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep_height"
@@ -98,6 +127,10 @@ ui_touch={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [rendering]
 

@@ -1,0 +1,18 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "config/tiles.json"
+      ],
+      "url": "/config/schemas/tiles_schema.json"
+    },
+    {
+      "fileMatch": [
+        "config/resources.json"
+      ],
+      "url": "/config/schemas/resources_schema.json"
+    }
+  ],
+  "editor.insertSpaces": false,
+  "todomd.defaultFile": "TODO.md"
+}

@@ -27,6 +27,10 @@ func set_enabled(en: bool):
 	enabled = en
 
 
+func make_backtile(info: Dictionary):
+	back.init(info)
+
+
 func make_tile(info: Dictionary) -> bool:
 	if not empty():
 		return false
@@ -106,4 +110,5 @@ func deselect():
 
 func pop() -> Tile:
 	deselect()
+	back.hit()
 	return take_tile()

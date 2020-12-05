@@ -51,8 +51,10 @@ func _on_Grid_level_won():
 	grid.pause()
 	grid.hide()
 	$EndLevel.set_title("You won!")
-	$EndLevel.set_resources($ResourcesOverlay.resources)
+	var acquired_resources: Dictionary = $ResourcesOverlay.resources
+	$EndLevel.set_resources(acquired_resources)
 	$EndLevel.show()
+	Global.add_resources(acquired_resources)
 
 
 func _on_EndLevel_close():

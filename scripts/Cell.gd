@@ -17,6 +17,9 @@ var enabled: bool = true
 # Tile scene
 const TILE := preload("res://scenes/Tile.tscn")
 
+# Signals
+signal broken_backtile
+
 
 func _ready():
 	back = $BackTile
@@ -112,3 +115,7 @@ func pop() -> Tile:
 	deselect()
 	back.hit()
 	return take_tile()
+
+
+func _on_BackTile_destroyed():
+	emit_signal("broken_backtile")

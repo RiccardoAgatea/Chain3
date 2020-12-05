@@ -25,6 +25,10 @@ var user_active := true
 var selected_cells := []
 signal complete_chain(chain)
 
+# level completion
+var backtiles_count := 0
+signal level_won
+
 
 func _ready():
 	randomize()
@@ -76,14 +80,15 @@ func load_grid(layout: Array):
 			c.set_grid_position(i, j)
 			c.position = pos_to_pixels(i, j)
 
+			c.connect("broken_backtile", self, "_on_cell_broken_backtile")
+
 			if cell.tile:
 				generate_tile(c)
 			else:
 				c.set_enabled(false)
 
 			if cell.back != null:
-				var x = find_backtile(cell.back)
-
+				backtiles_count += 1
 				c.make_backtile(find_backtile(cell.back))
 
 		grid.append(r)
@@ -190,3 +195,13 @@ func pause():
 
 func resume():
 	set_process(true)
+
+
+func check_win_conditions():
+	if backtiles_count == 0:
+		emit_signal("level_won")
+
+
+func _on_cell_broken_backtile():
+	backtiles_count -= 1
+	check_win_conditions()

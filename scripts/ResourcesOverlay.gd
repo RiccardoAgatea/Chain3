@@ -13,6 +13,10 @@ const RESOURCE_TAB := preload("res://scenes/ResourceTab.tscn")
 signal close
 
 
+func _ready():
+	set_process(false)
+
+
 func load_resources() -> Dictionary:
 	var file := File.new()
 	if file.open("res://config/resources.json", File.READ) != OK:
@@ -38,6 +42,7 @@ func resource_ordering(res1: String, res2: String) -> bool:
 
 
 func show():
+	set_process(true)
 	var res_names := resources.keys()
 	res_names.sort_custom(self, "resource_ordering")
 	for res_name in res_names:
@@ -54,6 +59,7 @@ func show():
 
 
 func hide():
+	set_process(false)
 	for tab in res_container.get_children():
 		tab.queue_free()
 
@@ -62,3 +68,11 @@ func hide():
 
 func _on_Button_pressed():
 	emit_signal("close")
+
+
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_touch"):
+		var global_mouse := get_global_mouse_position()
+		var panel_rect: Rect2 = $CenterContainer/Panel.get_rect()
+		if not panel_rect.has_point(global_mouse):
+			$CenterContainer/Panel/MarginContainer/VBoxContainer/Button.emit_signal("pressed")

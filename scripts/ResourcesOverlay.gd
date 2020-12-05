@@ -74,7 +74,7 @@ func show():
 			var base := 0
 
 			if res_name in Global.resources:
-				base = Global.resources[res_name]
+				base = Global.resources[res_name].count
 
 			tab.set_info(res["sprite"], res["name"], res["count"], true, base)
 		else:

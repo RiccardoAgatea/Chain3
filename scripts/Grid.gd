@@ -9,6 +9,7 @@ const CELL := preload("res://scenes/Cell.tscn")
 
 # Piece types
 onready var tile_types := load_tiles()
+onready var backtile_types := load_backtiles()
 
 # Grid holding the pieces
 var cell_size: int
@@ -32,6 +33,13 @@ func _ready():
 func load_tiles() -> Array:
 	var file := File.new()
 	if file.open("res://config/tiles.json", File.READ) != OK:
+		print("nou tiles")
+	return JSON.parse(file.get_as_text()).result
+
+
+func load_backtiles() -> Array:
+	var file := File.new()
+	if file.open("res://config/backtiles.json", File.READ) != OK:
 		print("nou tiles")
 	return JSON.parse(file.get_as_text()).result
 
@@ -73,7 +81,20 @@ func load_grid(layout: Array):
 			else:
 				c.set_enabled(false)
 
+			if cell.back != null:
+				var x = find_backtile(cell.back)
+
+				c.make_backtile(find_backtile(cell.back))
+
 		grid.append(r)
+
+
+func find_backtile(name: String):
+	for backtile in backtile_types:
+		if backtile.name == name:
+			return backtile
+
+	return null
 
 
 func generate_tile(cell: Cell) -> bool:

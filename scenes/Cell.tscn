@@ -333,13 +333,3 @@ modulate = Color( 1, 1, 1, 0.839216 )
 self_modulate = Color( 0.937255, 0.882353, 0.443137, 1 )
 frames = SubResource( 62 )
 frame = 52
-
-[node name="Placeholder" type="Panel" parent="."]
-visible = false
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-__meta__ = {
-"_edit_use_anchors_": false
-}

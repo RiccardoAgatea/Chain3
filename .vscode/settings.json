@@ -13,6 +13,5 @@
       "url": "/config/schemas/resources_schema.json"
     }
   ],
-  "editor.insertSpaces": false,
-  "todomd.defaultFile": "TODO.md"
+  "editor.insertSpaces": false
 }

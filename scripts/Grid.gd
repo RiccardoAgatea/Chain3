@@ -156,3 +156,9 @@ func refill():
 					generate_tile(gen)
 					var tile = gen.take_tile()
 					cell.acquire_tile(tile)
+
+
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_touch"):
+		click(get_local_mouse_position())
+

@@ -45,6 +45,11 @@ func set_resources(new_resources: Dictionary):
 	resources = new_resources.duplicate(true)
 
 
+func reset():
+	for res_name in resources:
+		resources[res_name]["count"] = 0
+
+
 func add_resources(new_resources: Dictionary):
 	for res_name in new_resources:
 		resources[res_name]["count"] += new_resources[res_name]

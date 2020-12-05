@@ -1,12 +1,30 @@
 extends Node2D
 
+var GRID = preload("res://scenes/Grid.tscn")
+var grid
+
 
 func _ready():
+	play()
+
+
+func play():
+	$ResourcesOverlay.reset()
 	load_level()
 
 
 func load_level(level: String = "res://levels/default.json"):
-	$GridHolder/Grid.load_level(level)
+	if grid:
+		grid.queue_free()
+
+	grid = GRID.instance()
+	$GridHolder.add_child(grid)
+	grid.position = Vector2(0, 0)
+
+	grid.connect("complete_chain", self, "_on_Grid_complete_chain")
+	grid.connect("level_won", self, "_on_Grid_level_won")
+
+	grid.load_level(level)
 
 
 func _on_Grid_complete_chain(tiles_list):
@@ -16,22 +34,27 @@ func _on_Grid_complete_chain(tiles_list):
 		add_child(tile)
 		tile.position = to_local(tile.position)
 		$ResourcesOverlay.add_resources(tile.collect(backpack_center))
-	$GridHolder/Grid.refill()
+	grid.refill()
 
 
 func _on_Backpack_pressed():
-	$GridHolder/Grid.pause()
+	grid.pause()
 	$ResourcesOverlay.show()
 
 
 func _on_ResourcesOverlay_close():
 	$ResourcesOverlay.hide()
-	$GridHolder/Grid.resume()
+	grid.resume()
 
 
 func _on_Grid_level_won():
-	$GridHolder/Grid.pause()
-	$GridHolder/Grid.hide()
+	grid.pause()
+	grid.hide()
 	$EndLevel.set_title("You won!")
 	$EndLevel.set_resources($ResourcesOverlay.resources)
 	$EndLevel.show()
+
+
+func _on_EndLevel_close():
+	$EndLevel.hide()
+	play()

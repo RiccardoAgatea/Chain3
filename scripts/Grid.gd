@@ -162,3 +162,10 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_touch"):
 		click(get_local_mouse_position())
 
+
+func pause():
+	set_process(false)
+
+
+func resume():
+	set_process(true)

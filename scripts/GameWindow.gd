@@ -21,9 +21,11 @@ func _on_Grid_complete_chain(tiles_list):
 
 func _on_Backpack_pressed():
 	# TODO: Add pause game
+	$GridHolder/Grid.pause()
 	$ResourcesOverlay.show()
 
 
 func _on_ResourcesOverlay_close():
 	# TODO: Add resume game
 	$ResourcesOverlay.hide()
+	$GridHolder/Grid.resume()

@@ -1,5 +1,9 @@
 extends Panel
 
+# Details
+export (String) var default_title = "Resources"
+export (bool) var differencial = false
+
 # Resource types
 onready var resources := load_resources()
 
@@ -15,6 +19,11 @@ signal close
 
 func _ready():
 	set_process(false)
+	set_title(default_title)
+
+
+func set_title(new_title: String):
+	$CenterContainer/Panel/MarginContainer/VBoxContainer/Label.set_text(new_title)
 
 
 func load_resources() -> Dictionary:
@@ -30,6 +39,10 @@ func load_resources() -> Dictionary:
 		dict[name]["count"] = 0
 
 	return dict
+
+
+func set_resources(new_resources: Dictionary):
+	resources = new_resources.duplicate(true)
 
 
 func add_resources(new_resources: Dictionary):
@@ -52,7 +65,15 @@ func show():
 			continue
 
 		var tab := RESOURCE_TAB.instance()
-		tab.set_info(res["sprite"], res["name"], res["count"])
+		if differencial:
+			var base := 0
+
+			if res_name in Global.resources:
+				base = Global.resources[res_name]
+
+			tab.set_info(res["sprite"], res["name"], res["count"], true, base)
+		else:
+			tab.set_info(res["sprite"], res["name"], res["count"])
 		res_container.add_child(tab)
 
 	.show()

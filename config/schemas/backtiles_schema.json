@@ -1,0 +1,31 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"definitions": {
+		"backtilesList": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"resources": {
+						"type": "object"
+					},
+					"stages": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"sprite": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"$ref": "#definitions/backtilesList"
+}

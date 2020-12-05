@@ -1,0 +1,11 @@
+[
+	{
+		"name": "mud",
+		"resources": {},
+		"stages": [
+			{
+				"sprite": "res://art/sprites/backtiles/Mud.png"
+			}
+		]
+	}
+]

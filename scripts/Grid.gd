@@ -105,7 +105,10 @@ func click(coordinates: Vector2):
 	if selected_cells == []:
 		select(r, c)
 	elif selected_cells.back().row == r and selected_cells.back().column == c:
-		confirm_selection()
+		if selected_cells.size() >= 3:
+			confirm_selection()
+		else:
+			deselect_all()
 	elif selected_cells.has(grid[r][c]):
 		while not (selected_cells.back().row == r and selected_cells.back().column == c):
 			selected_cells.back().deselect()
